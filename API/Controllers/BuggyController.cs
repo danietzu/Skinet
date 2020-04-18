@@ -16,24 +16,23 @@ namespace API.Controllers
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {
-            var item = _context.Products.Find(42);
+            var product = _context.Products.Find(100);
 
-            if (item == null)
-            {
+            if (product == null)
                 return NotFound(new ApiResponse(404));
-            }
 
-            return Ok();
+            return Ok(product);
         }
 
         [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-            var item = _context.Products.Find(42);
+            var product = _context.Products.Find(100);
 
-            var result = item.ToString();
+            // generate error
+            var productToReturn = product.ToString();
 
-            return Ok();
+            return Ok(productToReturn);
         }
 
         [HttpGet("badrequest")]
