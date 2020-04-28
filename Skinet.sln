@@ -30,7 +30,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AngularClient", "AngularCli
 		SlnRelativePath = "AngularClient\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{D07EA90A-74AE-4A7F-96F0-9A8818298F13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{D07EA90A-74AE-4A7F-96F0-9A8818298F13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,7 +79,6 @@ Global
 		{525BC21D-B62E-4A03-8CB0-3114785BD4D3}.Release|x86.ActiveCfg = Release|Any CPU
 		{525BC21D-B62E-4A03-8CB0-3114785BD4D3}.Release|x86.Build.0 = Release|Any CPU
 		{58FCE54B-6335-4179-83F1-DF2BC587310A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58FCE54B-6335-4179-83F1-DF2BC587310A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58FCE54B-6335-4179-83F1-DF2BC587310A}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{58FCE54B-6335-4179-83F1-DF2BC587310A}.Debug|x64.Build.0 = Debug|Any CPU
 		{58FCE54B-6335-4179-83F1-DF2BC587310A}.Debug|x86.ActiveCfg = Debug|Any CPU

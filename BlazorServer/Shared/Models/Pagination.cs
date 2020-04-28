@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlazorServer.Data
+namespace BlazorServer.Shared.Models
 {
     public class Pagination
     {

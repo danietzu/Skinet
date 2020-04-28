@@ -1,3 +1,4 @@
+using BlazorServer.Shop;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,8 @@ namespace BlazorServer
             {
                 BaseAddress = new Uri("https://localhost:5001")
             });
+
+            services.AddSingleton<ShopService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

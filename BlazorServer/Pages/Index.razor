@@ -2,6 +2,7 @@
 
 @inject IJSRuntime js
 @inject HttpClient http
+@inject ShopService shopService
 
 <h1>Welcome to @title</h1>
 
@@ -9,7 +10,7 @@
 {
     @foreach (var product in products)
     {
-        <li>@product.Name</li>
+        <li>@product.Id - @product.Name</li>
     }
 }
 
@@ -19,18 +20,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await http.GetAsync("https://localhost:4000/api/products");
-        var content = await response.Content.ReadAsStringAsync();
-
-        var paginatedProducts = JsonSerializer.Deserialize<Pagination>
-            (content, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-        var data = paginatedProducts.Data;
-
-        products = data;
+        var pagination = await shopService.GetProducts();
+        products = pagination.Data;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
