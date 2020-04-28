@@ -1,34 +1,7 @@
 ﻿@page "/"
 
-@inject IJSRuntime js
-@inject HttpClient http
-@inject ShopService shopService
-
-<h1>Welcome to @title</h1>
-
-@if (products != null)
-{
-    @foreach (var product in products)
-    {
-        <li>@product.Id - @product.Name</li>
-    }
-}
+<Shop />
 
 @code {
-    string title = "BlazorServer";
-    List<Product> products;
 
-    protected override async Task OnInitializedAsync()
-    {
-        var pagination = await shopService.GetProducts();
-        products = pagination.Data;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await js.InvokeVoidAsync("log", products);
-        }
-    }
 }
