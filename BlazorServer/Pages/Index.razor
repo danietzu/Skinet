@@ -1,7 +1,43 @@
 ﻿@page "/"
 
+@inject IJSRuntime js
+@inject HttpClient http
+
 <h1>Welcome to @title</h1>
+
+@if (products != null)
+{
+    @foreach (var product in products)
+    {
+        <li>@product.Name</li>
+    }
+}
 
 @code {
     string title = "BlazorServer";
+    List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await http.GetAsync("https://localhost:4000/api/products");
+        var content = await response.Content.ReadAsStringAsync();
+
+        var paginatedProducts = JsonSerializer.Deserialize<Pagination>
+            (content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+        var data = paginatedProducts.Data;
+
+        products = data;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.InvokeVoidAsync("log", products);
+        }
+    }
 }

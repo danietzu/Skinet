@@ -3,3 +3,9 @@
 <div class="container" style="margin-top: 140px;">
   <h1>Welcome to {{ title }}</h1>
 </div>
+
+<ul>
+  <li *ngFor="let product of products">
+    {{ product.name }}
+  </li>
+</ul>
