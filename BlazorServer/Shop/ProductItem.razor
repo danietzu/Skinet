@@ -1,0 +1,31 @@
+﻿<div class="product-item card h-100 shadow-sm">
+    <img class="img-fluid bg-light" src="@Product.PictureUrl" alt="@Product.Name" />
+    <div class="card-body d-flex flex-column">
+        <a href="#">
+            <h6 class="text-uppercase">@Product.Name</h6>
+        </a>
+        <span class="mb-2">@string.Format("{0:C}", Product.Price)</span>
+        <div class="btn-group mt-auto">
+            <button type="button"
+                    class="btn btn-outline-secondary fa fa-shopping-cart mr-2"></button>
+            <button type="button" class="btn btn-outline-secondary">
+                View
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-item.btn-group {
+        width: 100%;
+    }
+
+    .product-item.btn {
+        width: 50%;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+}
