@@ -9,26 +9,37 @@ namespace BlazorServer.Shop
     public class ShopService
     {
         private readonly HttpClient _http;
-        private readonly string _baseUrl = "https://localhost:4000/api/";
+        private readonly string _baseUrl = "https://localhost:4000/api";
 
         public ShopService(HttpClient http)
         {
             _http = http;
         }
 
-        public async Task<Pagination> GetProducts()
+        public async Task<Pagination> GetProducts(int brandId,
+                                                  int typeId,
+                                                  string sort,
+                                                  int pageIndex)
         {
-            return await GetSingleDeserialized<Pagination>(_baseUrl + "products");
+            string brandParam = brandId == 0 ? "" : brandId.ToString();
+            string typeParam = typeId == 0 ? "" : typeId.ToString();
+
+            return await GetSingleDeserialized<Pagination>
+                ($"{_baseUrl}/products" +
+                 $"?brandId={brandParam}" +
+                 $"&typeId={typeParam}" +
+                 $"&sort={sort}" +
+                 $"&pageIndex={pageIndex}");
         }
 
         public async Task<List<ProductBrand>> GetProductBrands()
         {
-            return await GetListDeserialized<ProductBrand>(_baseUrl + "products/brands");
+            return await GetListDeserialized<ProductBrand>(_baseUrl + "/products/brands");
         }
 
         public async Task<List<ProductType>> GetProductTypes()
         {
-            return await GetListDeserialized<ProductType>(_baseUrl + "products/types");
+            return await GetListDeserialized<ProductType>(_baseUrl + "/products/types");
         }
 
         private async Task<T> GetSingleDeserialized<T>(string uri)
