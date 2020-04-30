@@ -19,17 +19,27 @@ namespace BlazorServer.Shop
         public async Task<Pagination> GetProducts(int brandId,
                                                   int typeId,
                                                   string sort,
-                                                  int pageIndex)
+                                                  int pageIndex,
+                                                  string searchTerm)
         {
             string brandParam = brandId == 0 ? "" : brandId.ToString();
             string typeParam = typeId == 0 ? "" : typeId.ToString();
 
-            return await GetSingleDeserialized<Pagination>
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return await GetSingleDeserialized<Pagination>
+                    ($"{_baseUrl}/products" +
+                     $"?search={searchTerm}");
+            }
+            else
+            {
+                return await GetSingleDeserialized<Pagination>
                 ($"{_baseUrl}/products" +
                  $"?brandId={brandParam}" +
                  $"&typeId={typeParam}" +
                  $"&sort={sort}" +
                  $"&pageIndex={pageIndex}");
+            }
         }
 
         public async Task<List<ProductBrand>> GetProductBrands()

@@ -15,7 +15,7 @@ export class ShopService {
   constructor(private http: HttpClient) {}
 
   getProducts(shopParams: ShopParams) {
-    const { brandId, typeId, sort, pageNumber, pageSize } = shopParams;
+    const { brandId, typeId, sort, pageNumber, pageSize, search } = shopParams;
     let params = new HttpParams();
 
     if (brandId !== 0) {
@@ -23,6 +23,9 @@ export class ShopService {
     }
     if (typeId !== 0) {
       params = params.append('typeId', typeId.toString());
+    }
+    if (search) {
+      params = params.append('search', search);
     }
 
     params = params.append('sort', sort);

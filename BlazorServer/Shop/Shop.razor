@@ -64,8 +64,14 @@
                     <input type="text"
                            class="form-control mr-2"
                            style="width: 300px;"
-                           placeholder="Search..." />
-                    <button class="btn btn-outline-primary my-2">Search</button>
+                           placeholder="Search..."
+                           @bind-value="searchTerm"
+                           @onkeyup="Search" />
+                    <button class="btn btn-outline-primary my-2"
+                            @onclick="@(() => Search(new KeyboardEventArgs {
+                                                         Key = "Enter" }))">
+                        Search
+                    </button>
                     <button class="btn btn-outline-success my-2 ml-2">Reset</button>
                 </div>
             </div>
@@ -81,7 +87,7 @@
                 }
             </div>
 
-            @if (pagination != null && products.Count > 0)
+            @if (products != null && products.Count > 0)
             {
                 <Pager Pages="@pages"
                        PageChanged="ChangePage" />
@@ -100,6 +106,7 @@
     int productTypeIdSelected = 0;
     string sortSelected = "name";
     int pageIndex = 1;
+    string searchTerm = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -127,10 +134,12 @@
         var response = await shopService.GetProducts(productBrandIdSelected,
                                                        productTypeIdSelected,
                                                        sortSelected,
-                                                       pageIndex);
+                                                       pageIndex,
+                                                       searchTerm);
         pagination = response;
         products = response.Data;
 
+        searchTerm = "";
         pageIndex = 1;
         SetPages();
     }
@@ -167,5 +176,13 @@
     {
         pageIndex = page;
         await GetProducts();
+    }
+
+    async Task Search(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await GetProducts();
+        }
     }
 }
