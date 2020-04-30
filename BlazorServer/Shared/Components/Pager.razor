@@ -1,0 +1,28 @@
+﻿<div class="d-flex justify-content-center">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            @foreach (var page in Pages)
+            {
+                <li class="page-item">
+                    <button class="page-link"
+                            @onclick="@(() => PageChanged.InvokeAsync(page + 1))">
+                        @(page + 1)
+                    </button>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@code {
+    [Parameter]
+    public List<int> Pages { get; set; }
+    [Parameter]
+    public EventCallback<int> PageChanged { get; set; }
+}

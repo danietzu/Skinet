@@ -1,0 +1,30 @@
+﻿<header>
+    @if (TotalCount > 0)
+    {
+        <span>
+            Showing
+            <strong>
+                @((PageIndex - 1) * PageSize + 1) -
+                @(PageIndex * PageSize > TotalCount
+                            ? TotalCount
+                            : PageIndex * PageSize)
+            </strong> of
+            <strong>
+                @TotalCount
+            </strong> Results
+        </span>
+    }
+    else
+    {
+        <span>Showing <strong>0</strong> Results</span>
+    }
+</header>
+
+@code {
+    [Parameter]
+    public int PageIndex { get; set; }
+    [Parameter]
+    public int PageSize { get; set; }
+    [Parameter]
+    public int TotalCount { get; set; }
+}

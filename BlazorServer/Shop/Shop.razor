@@ -54,9 +54,12 @@
         </section>
         <section class="col-9">
             <div class="d-flex justify-content-between align-items-center pb-2">
-                <header>
-                    <span>Showing <strong>10</strong> of <strong>15</strong> Results</span>
-                </header>
+                @if (pagination != null)
+                {
+                    <PagingHeader TotalCount="@pagination.Count"
+                                  PageSize="@pagination.PageSize"
+                                  PageIndex="@pagination.PageIndex" />
+                }
                 <div class="form-inline mt-2">
                     <input type="text"
                            class="form-control mr-2"
@@ -77,30 +80,12 @@
                     }
                 }
             </div>
-            <div class="d-flex justify-content-center">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
-                        </li>
 
-                        @if (pagination != null)
-                            @foreach (var page in pages)
-                            {
-                                <li class="page-item">
-                                    <button class="page-link"
-                                            @onclick="() => ChangePage(page + 1)">
-                                        @(page + 1)
-                                    </button>
-                                </li>
-                            }
-
-                        <li class="page-item">
-                            <a class="page-link">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            @if (pagination != null && products.Count > 0)
+            {
+                <Pager Pages="@pages"
+                       PageChanged="ChangePage" />
+            }
         </section>
     </div>
 </div>
